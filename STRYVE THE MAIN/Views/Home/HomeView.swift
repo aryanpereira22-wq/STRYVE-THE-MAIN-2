@@ -22,7 +22,7 @@ struct HomeView: View {
                     // Header
                     HStack {
                         VStack(alignment: .leading) {
-                            Text("Welcome back,")
+                            Text("Welcome,")
                                 .font(.title3)
                                 .foregroundColor(.gray)
                             Text("Athlete")
