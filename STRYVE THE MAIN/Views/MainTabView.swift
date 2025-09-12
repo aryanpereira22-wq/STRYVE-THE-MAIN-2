@@ -1,21 +1,19 @@
 //
-//  ContentView.swift
+//  MainTabView.swift
 //  STRYVE THE MAIN
 //
-//  Created by Aryan Pereira on 07/08/2025.
+//  Created by Aryan Pereira on 08/08/2025.
 //
 
 import SwiftUI
-import MapKit
 
-struct ContentView: View {
+struct MainTabView: View {
     @State private var selectedTab = 0
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            
             // Home Tab
-            HomeView()
+            ContentView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")
@@ -71,5 +69,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MainTabView()
 }
