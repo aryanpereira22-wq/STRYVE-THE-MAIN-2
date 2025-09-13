@@ -30,54 +30,55 @@ struct ProfileView: View {
                 // Header
                 VStack(spacing: 16) {
                     // Profile Image and Stats
-                    HStack(spacing: 20) {
+                    VStack(spacing: 12) {
                         // Profile Image
                         Button(action: { showEditProfile = true }) {
-                            ZStack(alignment: .bottomTrailing) {
-                                Image(systemName: "person.circle.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 90, height: 90)
-                                    .foregroundColor(ColorTheme.primaryBlue.opacity(0.2))
-                                
-                                Circle()
-                                    .fill(Color.green)
-                                    .frame(width: 16, height: 16)
-                                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                            }
-                        }
-                        
+                          ZStack(alignment: .bottomTrailing) {
+                              Image(systemName: "person.circle.fill")
+                                  .resizable()
+                                  .aspectRatio(contentMode: .fill)
+                                  .frame(width: 90, height: 90)
+                                  .foregroundColor(ColorTheme.primaryBlue.opacity(0.2))
+            
+                              Circle()
+                                  .fill(Color.green)
+                                  .frame(width: 16, height: 16)
+                                  .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                           }
+                       }
+    
                         // Stats
                         HStack(spacing: 16) {
                             VStack {
-                                Text("\(userStats.rank)")
+                                 Text("\(userStats.rank)")
                                     .font(FontTheme.displaySmall)
-                                Text("Rank")
+                                 Text("Rank")
                                     .font(FontTheme.labelSmall)
                             }
-                            
+        
                             Divider()
                                 .frame(height: 40)
-                            
+        
                             VStack {
                                 Text("\(userStats.level)")
                                     .font(FontTheme.displaySmall)
                                 Text("Level")
                                     .font(FontTheme.labelSmall)
                             }
-                            
+        
                             Divider()
                                 .frame(height: 40)
-                            
+        
                             VStack {
                                 Text("\(userStats.streakDays)")
                                     .font(FontTheme.displaySmall)
                                 Text("Day Streak")
                                     .font(FontTheme.labelSmall)
                             }
-                        }
-                    }
-                    .padding(.top, 20)
+                   }
+                }
+                .padding(.top, 20)
+
                     
                     // User Info
                     VStack(spacing: 4) {
