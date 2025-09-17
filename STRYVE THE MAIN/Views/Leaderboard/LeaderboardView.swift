@@ -70,6 +70,9 @@ struct LeaderboardView: View {
                     Image(systemName: "line.3.horizontal.decrease")
                 }
             }
+			.toolbarBackground(ColorTheme.primaryBlue, for: .navigationBar) 
+			.toolbarBackground(.visible, for: .navigationBar)
+			.toolbarColorScheme(.dark, for: .navigationBar
             .sheet(isPresented: $showFilters) {
                 LeaderboardFilterView(selectedFilter: $selectedTab, filters: ["Global", "Friends"])
             }
