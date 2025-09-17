@@ -123,22 +123,27 @@ struct LeaderboardRow: View {
             
             // Name and Level
             VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 4) {
-                    Text(user.isCurrentUser ? "You" : user.name)
-                        .font(FontTheme.bodyMedium)
-                        .foregroundColor(ColorTheme.textPrimary)
-                    
-                    if user.isCurrentUser {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 12))
-                            .foregroundColor(ColorTheme.primaryBlue)
-                    }
-                }
-                
-                Text("Level \(user.level) • \(user.steps) steps")
-                    .font(FontTheme.labelSmall)
-                    .foregroundColor(ColorTheme.textSecondary)
-            }
+			    HStack(spacing: 4) {
+ 			       let displayName = user.isCurrentUser ? "You" : user.name
+	               Text(displayName)
+            			.font(FontTheme.bodyMedium)
+            			.foregroundColor(
+               				 (displayName == "Alex Johnson" || displayName == "You" || displayName == "Taylor Swift")
+                			? .black
+                			: ColorTheme.textPrimary
+           				 )
+        
+        			if user.isCurrentUser {
+            			Image(systemName: "checkmark.seal.fill")
+                			.font(.system(size: 12))
+                			.foregroundColor(ColorTheme.primaryBlue)
+        			}
+  			  }
+    
+    		Text("Level \(user.level) • \(user.steps) steps")
+        	.font(FontTheme.labelSmall)
+        	.foregroundColor(ColorTheme.textSecondary)
+		}
             
             Spacer()
             
