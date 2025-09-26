@@ -18,18 +18,21 @@ struct HomeView: View {
             Color.black.edgesIgnoringSafeArea(.all)
             
             ScrollView {
-                VStack(spacing: 30) {
+                VStack(spacing: 40) {
+                    
                     // Header
                     HStack {
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 4) {
                             Text("Welcome Back,")
                                 .font(.title3)
                                 .foregroundColor(.gray)
+                            
                             Text("Athlete")
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
+                                .font(.system(size: 30, weight: .bold)) // smaller so no overlap
                                 .foregroundColor(.white)
                         }
+                        .padding(.top, 20) // moved header lower
+                        
                         Spacer()
                         
                         // Profile button
@@ -74,17 +77,20 @@ struct HomeView: View {
                                 .foregroundColor(.gray)
                         }
                     }
-                    .padding(.vertical, 20)
+                    .padding(.top, 10)
                     
                     // Tracking buttons
-                    HStack(spacing: 20) {
+                    HStack {
+                        Spacer()
                         TrackingButton(icon: "figure.run", title: "Run", color: .blue)
+                        Spacer()
                         TrackingButton(icon: "dumbbell.fill", title: "Weights", color: .green)
+                        Spacer()
                         TrackingButton(icon: "heart.fill", title: "Heart", color: .red)
+                        Spacer()
                     }
-                    .padding(.horizontal)
                     
-                    // Quest section
+                    // Today’s Quests → Number Rings
                     VStack(alignment: .leading, spacing: 15) {
                         Text("Today's Quests")
                             .font(.title2)
@@ -92,28 +98,26 @@ struct HomeView: View {
                             .foregroundColor(.white)
                             .padding(.horizontal)
                         
-                        // Quest rows
-                        VStack(spacing: 15) {
-                            ForEach(0..<2) { _ in
-                                HStack(spacing: 15) {
-                                    ForEach(0..<2) { _ in
-                                        QuestCard()
-                                    }
-                                }
-                                .padding(.horizontal)
-                            }
+                        HStack {
+                            Spacer()
+                            NumberRing(value: "5.3", title: "KM", color: .purple)
+                            Spacer()
+                            NumberRing(value: "35", title: "MIN", color: .blue)
+                            Spacer()
+                            NumberRing(value: "110", title: "BPM", color: .green)
+                            Spacer()
                         }
                     }
-                    .padding(.top, 10)
                     
                     Spacer()
                 }
-                .padding(.top, 20)
+                .padding(.top, 10)
             }
         }
     }
 }
 
+// MARK: - Tracking Button
 struct TrackingButton: View {
     let icon: String
     let title: String
@@ -127,7 +131,14 @@ struct TrackingButton: View {
                     .frame(width: 70, height: 70)
                     .overlay(
                         Circle()
-                            .stroke(LinearGradient(gradient: Gradient(colors: [color.opacity(0.7), color]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 2)
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [color.opacity(0.7), color]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 10 // 5x thicker
+                            )
                     )
                 
                 Image(systemName: icon)
@@ -142,29 +153,39 @@ struct TrackingButton: View {
     }
 }
 
-struct QuestCard: View {
+// MARK: - Number Ring
+struct NumberRing: View {
+    let value: String
+    let title: String
+    let color: Color
+    
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(Color(white: 0.1))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 15)
-                        .stroke(LinearGradient(gradient: Gradient(colors: [.purple, .blue]), startPoint: .topLeading, endPoint: .bottomTrailing), lineWidth: 1)
-                )
-                .frame(height: 100)
-            
-            VStack {
-                Text("Daily Steps")
-                    .font(.headline)
+        VStack {
+            ZStack {
+                Circle()
+                    .fill(Color.black)
+                    .frame(width: 70, height: 70)
+                    .overlay(
+                        Circle()
+                            .stroke(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [color.opacity(0.7), color]),
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                ),
+                                lineWidth: 10 // thick stroke
+                            )
+                    )
+                
+                Text(value)
+                    .font(.title2)
+                    .fontWeight(.bold)
                     .foregroundColor(.white)
-                Text("5,000/10,000")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                ProgressView(value: 0.5)
-                    .progressViewStyle(LinearProgressViewStyle(tint: .blue))
-                    .padding(.horizontal)
             }
-            .padding()
+            
+            Text(title)
+                .font(.caption)
+                .foregroundColor(.white)
         }
     }
 }
