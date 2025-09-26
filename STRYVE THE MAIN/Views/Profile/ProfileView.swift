@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @State private var selectedTab = 0
     @State private var showSettings = false
     @State private var showEditProfile = false
     
@@ -29,61 +28,66 @@ struct ProfileView: View {
             VStack(spacing: 0) {
                 // Header
                 VStack(spacing: 16) {
-                    // Profile Image and Stats
-                    VStack(spacing: 12) {
-                        // Profile Image
-                        Button(action: { showEditProfile = true }) {
-                          ZStack(alignment: .bottomTrailing) {
-                              Image(systemName: "person.circle.fill")
-                                  .resizable()
-                                  .aspectRatio(contentMode: .fill)
-                                  .frame(width: 90, height: 90)
-                                  .foregroundColor(ColorTheme.primaryBlue.opacity(0.2))
-            
-                              Circle()
-                                  .fill(Color.green)
-                                  .frame(width: 16, height: 16)
-                                  .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                           }
-                       }
-    
-                        // Stats
-                        HStack(spacing: 16) {
-                            VStack {
-                                 Text("\(userStats.rank)")
-                                    .font(FontTheme.displaySmall)
-                                 Text("Rank")
-                                    .font(FontTheme.labelSmall)
-                            }
-        
-                            Divider()
-                                .frame(height: 40)
-        
-                            VStack {
-                                Text("\(userStats.level)")
-                                    .font(FontTheme.displaySmall)
-                                Text("Level")
-                                    .font(FontTheme.labelSmall)
-                            }
-        
-                            Divider()
-                                .frame(height: 40)
-        
-                            VStack {
-                                Text("\(userStats.streakDays)")
-                                    .font(FontTheme.displaySmall)
-                                Text("Day Streak")
-                                    .font(FontTheme.labelSmall)
-                            }
-                   }
-                }
-                .padding(.top, 20)
-
+                    
+                    // Profile Image
+                    Button(action: { showEditProfile = true }) {
+                        ZStack(alignment: .bottomTrailing) {
+                            Image(systemName: "person.circle.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 90, height: 90)
+                                .foregroundColor(ColorTheme.primaryBlue.opacity(0.2))
+                            
+                            Circle()
+                                .fill(Color.green)
+                                .frame(width: 16, height: 16)
+                                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                        }
+                    }
+                    .padding(.top, 20)
+                    
+                    // Stats directly below profile image
+                    HStack(spacing: 16) {
+                        VStack {
+                            Text("\(userStats.rank)")
+                                .font(FontTheme.displaySmall)
+                                .foregroundColor(.white)
+                            Text("Rank")
+                                .font(FontTheme.labelSmall)
+                                .foregroundColor(.white)
+                        }
+                        
+                        Divider()
+                            .frame(height: 40)
+                        
+                        VStack {
+                            Text("\(userStats.level)")
+                                .font(FontTheme.displaySmall)
+                                .foregroundColor(.white)
+                            Text("Level")
+                                .font(FontTheme.labelSmall)
+                                .foregroundColor(.white)
+                        }
+                        
+                        Divider()
+                            .frame(height: 40)
+                        
+                        VStack {
+                            Text("\(userStats.streakDays)")
+                                .font(FontTheme.displaySmall)
+                                .foregroundColor(.white)
+                            Text("Day Streak")
+                                .font(FontTheme.labelSmall)
+                                .foregroundColor(.white)
+                        }
+                    }
+                    .padding(.top, 8)
                     
                     // User Info
                     VStack(spacing: 4) {
                         Text("Aryan Pereira")
                             .font(FontTheme.headlineMedium)
+                            .foregroundColor(.white)
                         
                         Text("@aryanp • San Francisco, CA")
                             .font(FontTheme.bodyMedium)
@@ -103,40 +107,45 @@ struct ProfileView: View {
                     }
                     .padding(.vertical, 12)
                 }
+                
+                // Athlete Passport Box
+                HStack {
+                    Text("Athlete Passport")
+                        .font(FontTheme.displaySmall)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
+                }
+                .frame(height: 80)
                 .background(ColorTheme.backgroundSecondary)
-                
-                // Stats Grid
-                LazyVGrid(columns: [
-                    GridItem(.flexible(), spacing: 16),
-                    GridItem(.flexible(), spacing: 16)
-                ], spacing: 16) {
-                    StatCard(icon: "figure.walk", value: "\(userStats.totalSteps.formattedWithSeparator())", label: "Total Steps")
-                    StatCard(icon: "map", value: String(format: "%.1f km", userStats.totalDistance), label: "Distance")
-                    StatCard(icon: "flame", value: "\(userStats.totalCalories.formattedWithSeparator())", label: "Calories")
-                    StatCard(icon: "clock", value: "\(userStats.totalWorkouts)", label: "Workouts")
-                }
-                .padding()
-                
-                // Tabs
-                Picker("Profile Tabs", selection: $selectedTab) {
-                    Text("Activity").tag(0)
-                    Text("Achievements").tag(1)
-                    Text("Friends").tag(2)
-                }
-                .pickerStyle(SegmentedPickerStyle())
+                .cornerRadius(12)
                 .padding(.horizontal)
-                .padding(.bottom, 8)
+                .padding(.top, 12)
                 
-                // Tab Content Placeholder
-                VStack {
-                    if selectedTab == 0 {
-                        ActivityTabView()
-                    } else if selectedTab == 1 {
-                        AchievementsTabView()
-                    } else {
-                        FriendsTabView()
-                    }
+                // Friends Box
+                HStack {
+                    Text("Friends")
+                        .font(FontTheme.displaySmall)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.leading, 16)
                 }
+                .frame(height: 80)
+                .background(ColorTheme.backgroundSecondary)
+                .cornerRadius(12)
+                .padding(.horizontal)
+                .padding(.top, 12)
+                
+                // Recent Activity Section (centered)
+                VStack {
+                    Text("Recent Activity")
+                        .font(FontTheme.headlineMedium)
+                        .foregroundColor(.white)
+                        .padding(.bottom, 8)
+                    
+                    ActivityTabView()
+                }
+                .padding(.top, 20)
                 .padding(.bottom, 20)
             }
         }
@@ -160,44 +169,12 @@ struct ProfileView: View {
     }
 }
 
-// MARK: - Subviews
-
-// Using shared StatCard component from Components directory
-
 // MARK: - Tab Views
 
 struct ActivityTabView: View {
     var body: some View {
         VStack {
             Text("Activity data will be displayed here")
-                .foregroundColor(ColorTheme.textSecondary)
-                .padding()
-        }
-        .frame(maxWidth: .infinity, minHeight: 200)
-        .background(ColorTheme.backgroundSecondary)
-        .cornerRadius(12)
-        .padding(.horizontal)
-    }
-}
-
-struct AchievementsTabView: View {
-    var body: some View {
-        VStack {
-            Text("Achievements will be displayed here")
-                .foregroundColor(ColorTheme.textSecondary)
-                .padding()
-        }
-        .frame(maxWidth: .infinity, minHeight: 200)
-        .background(ColorTheme.backgroundSecondary)
-        .cornerRadius(12)
-        .padding(.horizontal)
-    }
-}
-
-struct FriendsTabView: View {
-    var body: some View {
-        VStack {
-            Text("Friends will be displayed here")
                 .foregroundColor(ColorTheme.textSecondary)
                 .padding()
         }
