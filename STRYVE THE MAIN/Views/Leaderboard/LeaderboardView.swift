@@ -29,82 +29,6 @@ struct LeaderboardView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                // Profile Image + Stats Section
-                VStack(spacing: 16) {
-                    // Profile Image (centered)
-                    HStack {
-                        Spacer()
-                        Button(action: { showFilters = true }) {
-                            ZStack(alignment: .bottomTrailing) {
-                                Image(systemName: "person.circle.fill")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 90, height: 90)
-                                    .foregroundColor(ColorTheme.primaryBlue.opacity(0.2))
-                                
-                                Circle()
-                                    .fill(Color.green)
-                                    .frame(width: 16, height: 16)
-                                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
-                            }
-                        }
-                        Spacer()
-                    }
-                    
-                    // Stats (centered)
-                    HStack(spacing: 16) {
-                        VStack {
-                            Text("2") // Example Rank
-                                .font(FontTheme.displaySmall)
-                                .foregroundColor(.white)
-                            Text("Rank")
-                                .font(FontTheme.labelSmall)
-                                .foregroundColor(.white)
-                        }
-                        
-                        Divider()
-                            .frame(height: 40)
-                            .background(Color.white)
-                        
-                        VStack {
-                            Text("5") // Example Level
-                                .font(FontTheme.displaySmall)
-                                .foregroundColor(.white)
-                            Text("Level")
-                                .font(FontTheme.labelSmall)
-                                .foregroundColor(.white)
-                        }
-                        
-                        Divider()
-                            .frame(height: 40)
-                            .background(Color.white)
-                        
-                        VStack {
-                            Text("12") // Example Day Streak
-                                .font(FontTheme.displaySmall)
-                                .foregroundColor(.white)
-                            Text("Day Streak")
-                                .font(FontTheme.labelSmall)
-                                .foregroundColor(.white)
-                        }
-                    }
-                }
-                .padding(.top, 20)
-                
-                // User Info
-                VStack(spacing: 4) {
-                    Text("Aryan Pereira")
-                        .font(FontTheme.headlineMedium)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-                    
-                    Text("@aryanp • San Francisco, CA")
-                        .font(FontTheme.bodyMedium)
-                        .foregroundColor(ColorTheme.textSecondary)
-                        .multilineTextAlignment(.center)
-                }
-                .padding(.bottom, 16)
-                
                 // Time Filter
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 12) {
@@ -146,6 +70,9 @@ struct LeaderboardView: View {
                     Image(systemName: "line.3.horizontal.decrease")
                 }
             }
+			.toolbarBackground(ColorTheme.primaryBlue, for: .navigationBar) 
+			.toolbarBackground(.visible, for: .navigationBar)
+			.toolbarColorScheme(.dark, for: .navigationBar
             .sheet(isPresented: $showFilters) {
                 LeaderboardFilterView(selectedFilter: $selectedTab, filters: ["Global", "Friends"])
             }
@@ -199,27 +126,27 @@ struct LeaderboardRow: View {
             
             // Name and Level
             VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 4) {
-                    let displayName = user.isCurrentUser ? "You" : user.name
-                    Text(displayName)
-                        .font(FontTheme.bodyMedium)
-                        .foregroundColor(
-                            (displayName == "Alex Johnson" || displayName == "You" || displayName == "Taylor Swift")
-                            ? .black
-                            : ColorTheme.textPrimary
-                        )
-                    
-                    if user.isCurrentUser {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 12))
-                            .foregroundColor(ColorTheme.primaryBlue)
-                    }
-                }
-                
-                Text("Level \(user.level) • \(user.steps) steps")
-                    .font(FontTheme.labelSmall)
-                    .foregroundColor(ColorTheme.textSecondary)
-            }
+			    HStack(spacing: 4) {
+ 			       let displayName = user.isCurrentUser ? "You" : user.name
+	               Text(displayName)
+            			.font(FontTheme.bodyMedium)
+            			.foregroundColor(
+               				 (displayName == "Alex Johnson" || displayName == "You" || displayName == "Taylor Swift")
+                			? .black
+                			: ColorTheme.textPrimary
+           				 )
+        
+        			if user.isCurrentUser {
+            			Image(systemName: "checkmark.seal.fill")
+                			.font(.system(size: 12))
+                			.foregroundColor(ColorTheme.primaryBlue)
+        			}
+  			  }
+    
+    		Text("Level \(user.level) • \(user.steps) steps")
+        	.font(FontTheme.labelSmall)
+        	.foregroundColor(ColorTheme.textSecondary)
+		}
             
             Spacer()
             
