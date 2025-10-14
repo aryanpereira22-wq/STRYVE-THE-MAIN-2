@@ -9,7 +9,8 @@ import Foundation
 import CoreLocation
 
 struct User: Identifiable, Codable {
-    let id = UUID()
+    var id: UUID = UUID()   // Added for Identifiable
+    
     var username: String
     var email: String
     var profileImageURL: String?
@@ -51,7 +52,7 @@ struct UserLocation: Codable {
 }
 
 struct Badge: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let name: String
     let description: String
     let iconName: String
@@ -76,7 +77,7 @@ enum BadgeRarity: String, Codable, CaseIterable {
 }
 
 struct Achievement: Identifiable, Codable {
-    let id = UUID()
+    var id = UUID()
     let title: String
     let description: String
     let iconName: String

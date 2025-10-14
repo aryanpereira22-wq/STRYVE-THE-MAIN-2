@@ -100,6 +100,7 @@ public enum ColorTheme {
     public static let facebookBlue = Color(hex: "1877F2")
     public static let googleRed = Color(hex: "DB4437")
     public static let appleBlack = Color(hex: "000000")
+
     
     // Ranking Colors
     public static let goldRank = Color(hex: "FFD700")
